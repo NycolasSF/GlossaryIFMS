@@ -12,34 +12,53 @@
 	<div class="container">
 	 <nav class="navbar navbar-light bg-light">
   		<a class="navbar-brand">Glossário</a>
-  		<form class="form-inline">
-    	<input class="form-control mr-sm-2" type="search" placeholder="Pesquisar" aria-label="Search">
-    	<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar palavra</button>
+  		<form class="form-inline" method="post" action="/pesquisar">
+      	<input class="form-control mr-sm-2" type="search" name="palavra" placeholder="Pesquisar" aria-label="Search">
+      	<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar palavra</button>
   		</form>
 	 </nav>
 	</div>
 </header>
-<%for(var i = 0; i < dicionario.length; i++){%>
+<main>
   <div class="container">
-      <div class="row">
-        <div class = "col-12">
-          <div class="card" style="width: 18rem;">
-            <div class="card-body">
-              <h5 class="card-title"><%= dicionario[i].palavra%></h5>
-              <p class="card-text"><%= dicionario[i].traducao%></p>
-              <img src="<%= dicionario[i].img_palavra %>">
-            </div>
-          </div>
+  <%for(var i = 0; i < dicionario.length; i++) { %>
+    <div class="row mt-4 ">
+      <div class="card col-sm-5 col-md-5 ml-5" style="width: 18rem; ">
+        <img class="card-img-top d-block w-100" src="<%= dicionario[i].img_palavra%>" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title"><%= dicionario[i].palavra %> - <%= dicionario[i].traducao %></h5>
+          <p class="card-text bold">Exemplos</p>
         </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item"><%= dicionario[i].exemplos_portugues%></li>
+          <li class="list-group-item"><%= dicionario[i].exemplos_ingles%></li>
+        </ul>
       </div>
     </div>
-<% } %>
-
-
+  <% } %>     
+  <!-- PALAVRA PESQUISADA -->
+  <%for(var i = 0; i < palavras_pesquisadas.length; i++) { %>
+    <div class="row mt-4 ">
+      <div class="card col-sm-5 col-md-5 ml-5" style="width: 18rem; ">
+        <img class="card-img-top d-block w-100" src="<%= palavras_pesquisadas[i].img_palavra%>" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title"><%= palavras_pesquisadas[i].palavra %> - <%= palavras_pesquisadas[i].traducao %></h5>
+          <p class="card-text bold">Exemplos</p>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item"><%= palavras_pesquisadas[i].exemplos_portugues%></li>
+          <li class="list-group-item"><%= palavras_pesquisadas[i].exemplos_ingles%></li>
+        </ul>
+      </div>
+    </div>
+  <% } %>
+  </div>
+</main>
 </body>
   <script src="../js/jquery-3.2.1.min.js"></script>
   <script src="../js/popper.min.js"></script>
   <script src="../js/bootstrap.min.js"></script>
+
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
