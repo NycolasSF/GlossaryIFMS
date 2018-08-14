@@ -70,6 +70,7 @@ goto menu
 :opcao4
 cls
 echo Executando app com nodemon
+START  %GlossaryIFMS%
 nodemon app
 pause
 goto menu
