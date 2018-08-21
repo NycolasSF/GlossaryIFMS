@@ -8,6 +8,8 @@ class consultar{
   pesquisarPalavra(palavra, callback){
    this.connection.query("SELECT * FROM Dicionario WHERE palavra like'%"+palavra+"' OR traducao like '%"+palavra+"'", callback); 
   }
+  // LOGIN e CADASTRO ADM
+  
 }
 
 module.exports = function() {

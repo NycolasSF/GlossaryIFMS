@@ -8,12 +8,7 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/floating-labels.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script type="text/javascript">
-       $("#close").click(function(){
-          $(".alert").hide();
-      });
 
-    </script>
 
   </body>
   </head>
@@ -26,27 +21,35 @@
       </div>
 
       <div class="form-label-group">
-        <input name="email" type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+        <input name="email" type="email" id="inputEmail" class="form-control" placeholder="Email address"  autofocus>
         <label for="inputEmail">Email</label>
       </div>
 
       <div class="form-label-group">
-        <input name="senha" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+        <input name="senha" type="password" id="inputPassword" class="form-control" placeholder="Password" >
         <label for="inputPassword">Senha</label>
       </div>
       <button class="btn btn-lg btn-primary btn-block" type="submit">Logar</button>
      
       <!-- ERROS -->
+      <%for(var i = 0; validacao.length < i; i++){ %>
       <div class="alert alert-danger alert-dismissible fade show" role="alert" style="margin: 1rem;">
-        <strong>ERROR!</strong> 
-        <p>MSG</p>
-        <button type="button" id="close" data-dismiss="alert" aria-label="Close">
+        <strong><%= validacao[i].titulo %></strong> 
+        <p><%= validacao[i].msg %></p>
+        <button type="button" class="close" id="close" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
+      <%}%>
       <footer>
         <p class="mt-5 mb-3 text-muted text-center">&copy; 2018</p>
       </footer>
     </form>
+    <script>
+      $("#close").click(function(){
+          $(".alert").hide('fast');
+      });
+
+    </script>
   </body>
 </html>
