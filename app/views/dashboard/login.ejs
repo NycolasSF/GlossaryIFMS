@@ -8,9 +8,6 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/floating-labels.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-
-  </body>
   </head>
 
   <body>
@@ -21,35 +18,43 @@
       </div>
 
       <div class="form-label-group">
-        <input name="email" type="email" id="inputEmail" class="form-control" placeholder="Email address"  autofocus>
+        <input name="email" type="email" id="inputEmail" class="form-control" placeholder="Email"  autofocus>
         <label for="inputEmail">Email</label>
       </div>
 
       <div class="form-label-group">
-        <input name="senha" type="password" id="inputPassword" class="form-control" placeholder="Password" >
+        <input name="senha" type="password" id="inputPassword" class="form-control" placeholder="Senha" >
         <label for="inputPassword">Senha</label>
       </div>
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Logar</button>
+      <button id="logar" class="btn btn-lg btn-primary btn-block" type="submit">Logar</button>
+      <script type="text/javascript">
+        $("#logar").click(function(){
+          $("#enviando").show('fast');
+          $("#alertclose").hide('fast');
+        })
+      </script>
+      <p id="enviando" class="text-center" style="color: #000; display: none; font-size: 2rem; padding: .5rem;">Aguarde um momento.... </p>
      
       <!-- ERROS -->
-      <%for(var i = 0; validacao.length < i; i++){ %>
-      <div class="alert alert-danger alert-dismissible fade show" role="alert" style="margin: 1rem;">
-        <strong><%= validacao[i].titulo %></strong> 
-        <p><%= validacao[i].msg %></p>
-        <button type="button" class="close" id="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
+      <%for(var i = 0; i < validacao.length; i++){ %>
+        <div id="alertclose" class="alert alert-danger alert-dismissible fade show" role="alert" style="margin: 1rem">
+          <strong><%= validacao[i].titulo %></strong> 
+          <p><%= validacao[i].msg %></p>
+          <button  type="button" class="close" id="close" >
+            <span aria-hidden="true" >&times;</span>
+          </button>
+        </div>
       <%}%>
       <footer>
         <p class="mt-5 mb-3 text-muted text-center">&copy; 2018</p>
       </footer>
     </form>
     <script>
-      $("#close").click(function(){
-          $(".alert").hide('fast');
-      });
-
+       $("#close").click(function(){
+            $("#alertclose").hide('fast');
+            $("#enviando").hide('fast');
+        });
+      
     </script>
   </body>
 </html>

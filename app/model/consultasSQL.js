@@ -8,7 +8,9 @@ class consultar{
   pesquisarPalavra(palavra, callback){
    this.connection.query("SELECT * FROM Dicionario WHERE palavra like'%"+palavra+"' OR traducao like '%"+palavra+"'", callback); 
   }
-  // LOGIN e CADASTRO ADM
+  login(email, senha, callback){
+    this.connection.query("SELECT * FROM Admins WHERE email_admin = '"+email+"' and senha_admin = '"+senha+"' ", callback)
+  }
   
 }
 

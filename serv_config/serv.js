@@ -2,9 +2,17 @@ var express = require('express');
 var consign = require('consign');
 var bodyParser = require('body-parser');
 var expressValidator = require('express-validator');
+var session = require('express-session');
 
 var app = express();
 
+app.use(session({
+  secret: 'sshhhhh',
+  saveUninitialized: true,
+   resave: true,
+  saveUninitialized: true,
+   cookie: { _expires:new Date() ,originalMaxAge: 1000000}
+}));
 
 
 app.set('view engine','ejs');
