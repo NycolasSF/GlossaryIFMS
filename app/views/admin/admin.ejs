@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -19,13 +19,13 @@
       <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <a class="nav-link" href="#">Adicionar Palavra</a>
+            <a class="nav-link" data-toggle="modal" data-target="#exampleModal" style="cursor: pointer;">Adicionar Palavra</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Editar</a>
+            <a class="nav-link" href="#" style="cursor: pointer;">Editar</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Remover</a>
+            <a class="nav-link" href="#" style="cursor: pointer;">Remover</a>
           </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">
@@ -45,70 +45,78 @@
           </div>
         </div>
         <div class="text-dark">
-          <h5><%= autor%></h5>
+          <h6>@<%= autor%></h6>
         </div>
       </div>
 
       <div class="my-3 p-3 bg-white rounded shadow-sm">
         <h6 class="border-bottom border-gray pb-2 mb-0">Minhas Palavras</h6>
 
-        <%for(var i = 0; i < palavrasAutor.lenght; i++) {  %>
+        <% for(var i=0; i < palavrasAutor.length; i++){%>
 
           <div class="media text-muted pt-3">
             <img src="<%= palavrasAutor[i].img_palavra%>" width="5%" class="mr-2 align-self-center rounded">
             <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
               <strong class="d-block text-gray-dark">@<%= autor %></strong>
-              Palavra: <%= palavrasAutor[i].palavra%> <br>
-              Tradução: <%= palavrasAutor[i].traducao%>
-            </p>
+                Palavra: <%= palavrasAutor[i].palavra%> <br>
+                Tradução: <%= palavrasAutor[i].traducao%>            
+             </p>
           </div>
+
         <%}%>
       </div>
 
       <div class="my-3 p-3 bg-white rounded shadow-sm">
         <h6 class="border-bottom border-gray pb-2 mb-0">Todas Palavras</h6>
-       
+      
+      <% for(var i=0; i < P_outros_autores.length; i++){%>
         <div class="media text-muted pt-3">
-          <img data-src="holder.js/32x32?theme=thumb&bg=007bff&fg=007bff&size=1" alt="" class="mr-2 rounded">
+          <img src="<%= P_outros_autores[i].img_palavra %>" width="5%" class="mr-2 rounded">
           <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
             <div class="d-flex justify-content-between align-items-center w-100">
-              <strong class="text-gray-dark">Full Name</strong>
-              <a href="#">Follow</a>
+              <strong class="text-gray-dark">@<%= P_outros_autores[i].nome_autor %></strong>
             </div>
-            <span class="d-block">@username</span>
+            <span class="d-block">
+              Palavra: <%= P_outros_autores[i].palavra %><br>
+              Traducao: <%= P_outros_autores[i].traducao %>
+            </span>
           </div>
         </div>
-       
-        <div class="media text-muted pt-3">
-          <img data-src="holder.js/32x32?theme=thumb&bg=007bff&fg=007bff&size=1" alt="" class="mr-2 rounded">
-          <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
-            <div class="d-flex justify-content-between align-items-center w-100">
-              <strong class="text-gray-dark">Full Name</strong>
-              <a href="#">Follow</a>
-            </div>
-            <span class="d-block">@username</span>
-          </div>
-        </div>
-        <div class="media text-muted pt-3">
-          <img data-src="holder.js/32x32?theme=thumb&bg=007bff&fg=007bff&size=1" alt="" class="mr-2 rounded">
-          <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
-            <div class="d-flex justify-content-between align-items-center w-100">
-              <strong class="text-gray-dark">Full Name</strong>
-              <a href="#">Follow</a>
-            </div>
-            <span class="d-block">@username</span>
-          </div>
-        </div>
-        <small class="d-block text-right mt-3">
-          <a href="#">All suggestions</a>
-        </small>
-      </div>
-    </main>
+      <%}%>
+      </div>  
 
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel" >Adicionar Palavra</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+              <button type="button" class="btn btn-primary">Enviar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </main> 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/holder.min.js"></script>
     <script src="js/offcanvas.js"></script>
+     <script type="text/javascript">
+      $('#myModal').on('shown.bs.modal', function () {
+        $('#myInput').trigger('focus')
+      })
+    </script> 
   </body>
 </html>

@@ -12,7 +12,10 @@ class consultar{
     this.connection.query("SELECT * FROM Admins WHERE email_admin = '"+email+"' and senha_admin = '"+senha+"' ", callback)
   }
   palavrasAdmin(nome, callback){
-    this.connection.query("SELECT * FROM Dicionario WHERE autor = (SELECT id_admin FROM Admins where nome_admin = '"+nome+"')", callback)
+    this.connection.query("SELECT * FROM Dicionario WHERE autor = (SELECT id_admin FROM Admins where nome_admin = '"+nome+"') ", callback)
+  }
+  palavrasTodasAdmins(callback){
+    this.connection.query("SELECT * FROM Dicionario, Admins where autor = id_admin ORDER BY nome_admin ASC", callback);
   }
 
   

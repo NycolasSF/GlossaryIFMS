@@ -14,7 +14,7 @@ var sess;
 
 module.exports.acesso_negado = function(app, req, res){
   sess = req.session;
-
+  console.log('acesso_negado'+sess.email)
   if(sess.email && sess.senha){
     res.redirect('/admin');
   }else{
@@ -51,23 +51,25 @@ module.exports.dashboard = function (app, req, res) {
   let connection = app.serv_config.conexao_banco();
   let pesquisar = new app.app.model.consultasSQL(connection);
 
-   pesquisar.login(sess.email, sess.senha, function(error, login){
+  pesquisar.login(sess.email, sess.senha, function(error, login){
     if (login.length == 0) {
-          validacao: [{
-            titulo: 'Ops, algo de errado !',
-              msg: 'Não encontramos seu cadastro, verifique seu email e senha, e tente novamente'
-          }]
-      return;
+          res.render("dashboard/login" , {
+              validacao: [{
+                titulo: 'Ops, algo de errado !',
+                msg: 'Não encontramos seu cadastro, verifique seu email e senha, e tente novamente',
+             }]
+          });
+      return
     }
     login.forEach(function(admin){
-      console.log(admin.nome_admin)
+      console.log(admin.nome_admin +'NOME PESSO')
        pesquisar.palavrasAdmin(admin.nome_admin, function(error, palavras_autor){
-        pesquisar.All_dicionario(function(err, All_palavras){
+        pesquisar.palavrasTodasAdmins(function(error, All_palavras){
           res.render("admin/admin", {
             validacao:{},
             autor: admin.nome_admin,
             palavrasAutor: palavras_autor,
-            All_palavras: All_palavras
+            P_outros_autores: All_palavras
           })
         });
       });
@@ -79,6 +81,6 @@ module.exports.sair = function (app, req, res) {
   sess.destroy(function (err) {
     delete sess;
     req.session = null;
-    res.redirect('/dashboard');
+    res.redirect('/');
   });
 }
