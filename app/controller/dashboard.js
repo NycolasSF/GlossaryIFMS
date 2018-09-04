@@ -3,10 +3,10 @@ var nodemailer = require('nodemailer');
 module.exports.login = function (app, req, res) {
 
   res.render("dashboard/login", {
-     validacao: [{
-       titulo:{},
+     validacao: {
+       titulo: {},
        color_background: {}
-     }]
+     }
    });
 }
 
@@ -59,13 +59,20 @@ module.exports.dashboard = function (app, req, res) {
           }]
       return;
     }
-    res.render("admin/admin", {
-        validacao:{},
-        autor: login.nome_admin
-    })
-  });
-
-
+    login.forEach(function(admin){
+      console.log(admin.nome_admin)
+       pesquisar.palavrasAdmin(admin.nome_admin, function(error, palavras_autor){
+        pesquisar.All_dicionario(function(err, All_palavras){
+          res.render("admin/admin", {
+            validacao:{},
+            autor: admin.nome_admin,
+            palavrasAutor: palavras_autor,
+            All_palavras: All_palavras
+          })
+        });
+      });
+    });
+  })
 }
 module.exports.sair = function (app, req, res) {
   sess = req.session;

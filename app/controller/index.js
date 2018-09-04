@@ -6,7 +6,8 @@ module.exports.index = function (app, req, res) {
   pesquisarDados.All_dicionario(function(error, result){
     res.render('index/index', {
     	dicionario: result,
-    	palavras_pesquisadas: {} 
+    	palavras_pesquisadas: {},
+    	pesquisa: {} 
     });
   });
 }
@@ -17,9 +18,11 @@ module.exports.pesquisar = function(app, req, res) {
 	let pesquisarDados = new app.app.model.consultasSQL(connection);
 
  	pesquisarDados.pesquisarPalavra(input.palavra, function(error, result){
+		console.log(input.palavra)
 		res.render('index/index', {
 			dicionario: {},
-			palavras_pesquisadas: result
+			pesquisa: input.palavra,
+			palavras_pesquisadas: result,
 		});
 	});
 }
