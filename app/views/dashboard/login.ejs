@@ -1,6 +1,7 @@
 <!doctype html>
 <html>
   <head>
+    <base href="/">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="icon" href="img/favicon.jpg">
@@ -34,11 +35,11 @@
         })
       </script>
       <p id="enviando" class="text-center" style="color: #000; display: none; font-size: 2rem; padding: .5rem;">Aguarde um momento.... </p>
-     
+
       <!-- ERROS -->
       <%for(var i = 0; i < validacao.length; i++){ %>
         <div id="alertclose" class="alert alert-danger alert-dismissible fade show" role="alert" style="margin: 1rem">
-          <strong><%= validacao[i].titulo %></strong> 
+          <strong><%= validacao[i].titulo %></strong>
           <p><%= validacao[i].msg %></p>
           <button  type="button" class="close" id="close" >
             <span aria-hidden="true" >&times;</span>
@@ -54,7 +55,7 @@
             $("#alertclose").hide('fast');
             $("#enviando").hide('fast');
         });
-      
+
     </script>
   </body>
 </html>

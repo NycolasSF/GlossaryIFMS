@@ -62,14 +62,14 @@ module.exports.dashboard = function (app, req, res) {
       return
     }
     login.forEach(function(admin){
-      console.log(admin.nome_admin +'NOME PESSO')
        pesquisar.palavrasAdmin(admin.nome_admin, function(error, palavras_autor){
         pesquisar.palavrasTodasAdmins(function(error, All_palavras){
           res.render("admin/admin", {
             validacao:{},
             autor: admin.nome_admin,
             palavrasAutor: palavras_autor,
-            P_outros_autores: All_palavras
+            P_outros_autores: All_palavras,
+            cadastro: [{}]
           })
         });
       });
@@ -81,6 +81,35 @@ module.exports.sair = function (app, req, res) {
   sess.destroy(function (err) {
     delete sess;
     req.session = null;
-    res.redirect('/');
+    res.redirect('/acesso_restrito');
   });
+}
+
+module.exports.cadastro_palavra = function (app, req, res) {
+  var info = req.body;
+  sess = req.session;
+
+  let connection = app.serv_config.conexao_banco();
+  let pesquisar = new app.app.model.consultasSQL(connection);
+
+  pesquisar.login(sess.email, sess.senha, function (error, result) {
+    result.forEach(function (cadastro) {
+      pesquisar.cadastro_palavra(info.palavra, info.traducao, info.img_palavra, info.exemplo_portugues, info.exemplo_ingles, cadastro.id_admin, function (error, cadastrada) {
+        pesquisar.palavrasAdmin(cadastro.nome_admin, function (error, palavras_autor) {
+          pesquisar.palavrasTodasAdmins(function (error, All_palavras) {
+            res.render("admin/admin",{
+              autor: cadastro.nome_admin,
+              palavrasAutor: palavras_autor,
+              P_outros_autores: All_palavras,
+              cadastro: [{
+                titulo: 'Palavra cadastrada!',
+              },
+              {cadastro: cadastro}]
+            });
+          })
+        })
+      });
+    });
+  });
+
 }
